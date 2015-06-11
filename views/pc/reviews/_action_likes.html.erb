@@ -1,0 +1,42 @@
+<% 
+likes = likes?(review) 
+like = get_like(review)
+%>
+<%= content_tag :div, class: "inline like-action #{(like.score > 0 ? 'liked' : 'unliked') if likes}", data: {url: like_review_path(review)} do %>
+  <div class="inline likable">
+    <a class="link-like btn">좋아요</a>
+  </div>
+  <span class="facebook_like inline"></span>
+  <div class="inline like-score-container">
+    <span class="like-score"><%= review.score_with_sign %></span>
+  </div>
+  <% if local_assigns[:hide_edit] != true %>
+    <%
+    deletable = review.deletable?(current_user)
+    editable = review.editable?(current_user)
+    %>
+    <% if deletable || editable %>
+      <div class="inline edit-review-container">
+        <% if deletable %>
+          <% if current_user %>
+            <%= link_to review_path(review), method: :delete, remote: true, data: {confirm: '작성한 리뷰가 완전히 삭제 됩니다.'} do %>
+              <span class="delete-review hoverable">삭제</span>
+            <% end %>
+          <% else %>
+           <%= content_tag :span, '삭제', class: 'delete-review hoverable edit-nonmember', data: {action: 'delete', path: review_path(review)} %>
+          <% end %>
+        <% end %>
+        <% if editable %>
+          <% if current_user %>
+            <%= link_to edit_review_path(review, group: @group_by), method: :post, remote: true do %>
+              <span class="edit-review hoverable">수정</span>
+            <% end %>
+          <% else %>
+            <%= content_tag :span, '수정', class: 'edit-review hoverable edit-nonmember', data: {action: 'edit', path: edit_review_path(review, group: @group_by)} %>
+          <% end %>
+        <% end %>
+        <div class="inline edit-review-container-line"></div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

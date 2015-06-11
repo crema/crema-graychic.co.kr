@@ -1,0 +1,23 @@
+<div class="panel-body no-border">
+  <%= render 'reviews/review_options', review: review %>
+  <%= render 'reviews/message', review: review %>
+  <div id="expand-product" >
+    <%= render 'reviews/images', review: review, li_class: 'grid-4' %>
+  </div>
+  <div id="expand-reviews">
+    <%= content_tag :a, data: {url: review.product_url || (review.product ? review.product.url : nil)}, class: 'link-iframe' do %>
+      <%= image_tag review.product_image_url, class: 'smooth', alt: review.product_name %>
+      <div><%= review.product_name %></div>
+    <% end %>
+  </div>
+</div>
+<div class="panel-footer no-border">
+  <div class="actions-container">
+    <div class="inline">
+      <a class="mall-link-color comments-link link-collapse">리뷰 접기</a>
+    </div>
+    <div class="inline divider">|</div>
+    <%= render 'reviews/action_likes', review: review %>
+  </div>
+  <%= render 'reviews/comments', review: review %>
+</div>

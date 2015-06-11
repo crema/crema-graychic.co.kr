@@ -1,0 +1,505 @@
+@import "../lib/common";
+@import "../lib/arrow";
+@import "../lib/icons";
+@import "compass/css3/appearance";
+@import "compass/css3/transition";
+
+body.reviews.index, body.reviews.photos, body.products.reviews, body.my.reviews, body.my.photo_reviews, body.users.reviews {
+  #content {
+    margin: 0 auto;
+    font-size: 12px;
+  }
+
+  .panel-heading {
+    border-bottom: 0;
+    margin-bottom: 6px;
+
+    .star-rating-container, .score-text, .like-result {
+      float: left;
+    }
+
+    .name {
+      color: #323232;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 520px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+  }
+
+  .panel-reviews.no-data {
+    .panel-body {
+      border: 0;
+      min-height: 260px;
+
+      .reviews {
+        text-align: center;
+        color: #9e9e9e;
+        margin-top: 30px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .panel-footer {
+    padding: 4px 0 19px 0;
+  }
+
+  .select2-hidden-accessible {
+    display: none;
+  }
+}
+
+ul.reviews {
+  margin-bottom: 14px;
+}
+
+li.review, li.sub_order {
+  margin: 8px 4px;
+  position: relative;
+
+  .review-inner {
+    @include clearfix;
+    position: relative;
+    border: 1px solid #dadada;
+    padding: 4px 5px;
+    -webkit-box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.04);
+    -moz-box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.04);
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    background: white;
+  }
+
+  .panel-review {
+    padding-top: 5px;
+    padding-right: 5px;
+
+    .message {
+      font-size: 14px;
+      font-weight: bold;
+      color: #3e3e3e;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 10px;
+    }
+
+    .star-wrap {
+      margin: 6px 0 8px 0;
+      height: 11px;
+    }
+
+    .name, .date {
+      font-size: 12px;
+      line-height: 17px;
+    }
+
+    .name {
+      color: #7d7d7d;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 140px;
+
+      &.brand-user-grade-display-type-10 {
+        width: 120px;
+      }
+
+      &.brand-user-grade-display-type-20 {
+        width: 195px;
+      }
+
+      .user-grade-icon {
+        vertical-align: middle;
+        position: relative;
+        top: -1px;
+      }
+    }
+
+    .date {
+      color: #d0d0d0;
+      margin-right: 20px;
+    }
+
+    .action-info {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+
+      .likes-count {
+        margin-left: 8px;
+      }
+
+      i.fa-comment {
+        font-size: 16px;
+        color: #c3c3c3;
+      }
+
+      i.fa-heart {
+        font-size: 15px;
+        color: #c3c3c3;
+      }
+
+      .count {
+        font-size: 12px;
+        color: #6c6c6c;
+      }
+    }
+
+    ul.images {
+      position: absolute;
+      right: 6px;
+      bottom: 3px;
+
+      li {
+        display: inline-block;
+      }
+
+      img {
+        width: 37px;
+        height: 37px;
+        @media (max-width: 350px) {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+
+    .my-reivew-tag {
+      width: 42px;
+      font-size: 11px;
+      line-height: 21px;
+      position: absolute;
+      top: 7px;
+      right: -2px;
+      background: rgba(255,74,20,0.74);
+      color: white;
+      text-align: center;
+    }
+
+    .new-tag {
+      width: 33px;
+      line-height: 19px;
+      position: absolute;
+      top: 7px;
+      right: -2px;
+      background: rgba(0,0,0,0.74);
+      color: #d8d8d8;
+      text-align: center;
+    }
+  }
+
+  .l-contents {
+    &.image {
+      float: left;
+      padding: 0px 14px 0 0;
+      margin-right: 0;
+      font-size: 0;
+    }
+
+    &.show_all {
+      padding: 0px 8px 0 0;
+    }
+
+    .panel-header, .panel-body, .panel-footer {
+      padding-bottom: 20px;
+      padding-top: 17px;
+    }
+
+    .score {
+      color: #a4a4a4;
+    }
+
+    .score-text {
+      margin: 0 9px;
+    }
+
+    .actions-container {
+      @include clearfix;
+      line-height: 25px;
+    }
+
+    .comments-link {
+      cursor: pointer;
+      color: #6eb67e;
+      font-weight: bold;
+
+      &.hide {
+        display: none;
+      }
+    }
+
+    .like-action {
+      .title {
+        margin-right: 12px;
+        color: #7b7b7b;
+        font-family: $font-default;
+      }
+    }
+  }
+
+  .r-contents {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    font-family: $font-default;
+
+    &.show_all {
+      font-family: $font-default;
+
+      .name {
+        font-weight: bold;
+      }
+    }
+
+    li {
+      border-top: 1px solid #dadada;
+      padding: 7px 5px;
+
+      &:first-child {
+        padding-top: 0;
+        border-top: none;
+      }
+
+      div {
+        line-height: 18px;
+      }
+    }
+
+    .info-container {
+      .title {
+        font-weight: bold;
+      }
+
+      .date {
+        color: #a8a8a8;
+        float: right;
+      }
+    }
+
+    ul.images {
+      margin: 11px -2px 0 -2px;
+
+      li {
+        padding: 4px 2px;
+        float: right;
+        border: 0;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+
+  .links {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
+    .link-cover {
+      display: block;
+      height: 100%;
+    }
+  }
+
+  .link-actions {
+    display: none;
+    height: 100%;
+    width: 53px;
+    color: #afafaf;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    .inner {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      margin-top: -17px;
+    }
+
+    .caption {
+      position: relative;
+      font-size: 10px;
+      width: 100%;
+      height: 13px;
+
+      div {
+        position: absolute;
+        width: 100%;
+        @include transition(opacity 0.5s ease);
+      }
+    }
+
+    .caption-close {
+      opacity: 0;
+    }
+
+    .icon-edit {
+      margin-bottom: 3px;
+      @include transition(transform 0.5s ease);
+    }
+
+    .icon-delete {
+      margin-bottom: 3px;
+    }
+  }
+
+  .actions {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #e0e0e0;
+
+    .action {
+      float: left;
+      height: 100%;
+      text-align: center;
+      color: #222222;
+      font-size: 15px;
+      position: relative;
+
+      div {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -9px;
+        width: 100%;
+      }
+    }
+  }
+
+  &.editable {
+    .review-inner {
+      @include transition(all 0.4s ease-out);
+    }
+
+    .link-cover {
+      margin-right: 53px;
+    }
+
+    .link-actions {
+      display: block;
+    }
+
+    .message {
+      margin-right: 20px;
+    }
+
+    .star-wrap {
+      margin-bottom: 5px;
+    }
+
+    .action-info {
+      left: 100px;
+    }
+  }
+
+  &.show-action {
+    &.edit, &.delete {
+      .review-inner {
+        margin-left: -20%;
+      }
+
+      .actions {
+        padding-left: 80%;
+
+        .action {
+          width: 100%;
+        }
+      }
+    }
+
+    &.edit.delete {
+      .review-inner {
+        margin-left: -40%;
+      }
+
+      .actions {
+        padding-left: 60%;
+
+        .action {
+          width: 50%;
+        }
+      }
+    }
+
+    .link-edit {
+      .icon-edit {
+        @include icon-delete;
+      }
+
+      .caption-close {
+        opacity: 1;
+      }
+
+      .caption-edit {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.show-old-reviews {
+  li.review {
+    line-height: 28px;
+    padding: 0;
+
+    a {
+      @include clearfix;
+      padding: 5px 12px;
+      display: block;
+      color: #aaa;
+
+      &:active {
+        color: black;
+      }
+    }
+
+    i {
+      font-size: 17px;
+    }
+  }
+}
+
+ul.reviews li.review .panel-review ul.images {
+  bottom: 27px;
+
+  li {
+    padding-left: 3px;
+  }
+
+  img {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+.facebook-container {
+  margin-left: 17px;
+  font-size: 14px;
+  color: #6d84b4;
+
+  .likable {
+    margin-right: 10px;
+  }
+
+  .facebook-like {
+    background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yr/r/zxVHVHoaB3X.png);
+    background-position: -15px -435px;
+    background-repeat: no-repeat;
+    background-size: auto;
+    width: 15px;
+    height: 14px;
+  }
+}

@@ -1,0 +1,117 @@
+<% content_for :topbar do %>
+  <%= render 'topbar/topbar', hide_sort_type: true %>
+<% end %>
+<% content_for :content do %>
+  <div class="panel panel-review">
+    <% if @review.product %>
+      <div class="panel-heading no-border">
+        <%= render @review.product, review_source: WrittenSource::BRAND_MOBILE_REVIEW_DETAIL, editable_review: @review.editable?(current_user) ? @review : nil %>
+      </div>
+    <% end %>
+    <div class="panel-body no-border">
+      <div class="panel sub-panel likes-container">
+        <div class="panel-heading thin-black"></div>
+        <div class="panel-body like-count-wrap">
+          <div class="like-result <%= 'overflow' if @review.likes_count >= 100 %>"><strong class="total"><%= @review.likes_count %></strong>명 중 <strong class="plus"><%= @review.plus_likes_count %></strong>명이 이 리뷰가 도움이 된다고 선택 했습니다</div>
+          <div class="r-contents">
+            <div class="author-name"><%= @review.user_display_name %></div>
+            <% if @brand.review_show_created_at %>
+              <div class="date"><%= @review.created_at.strftime("%Y.%m.%d") %></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% if @review.display_user_grade? %>
+        <div class="panel sub-panel user-grade-container">
+          <div class="panel-body">
+            작성자 등급:
+            <div class="grade-info">
+              <% if (user_grade_icon_url = @review.user_grade_icon_url) %>
+                <%= image_tag user_grade_icon_url, class: 'user-grade-icon' %>
+              <% end %>
+              <%= @review.brand_user_grade %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="panel sub-panel body-container">
+        <% if @brand.review_show_score && @review.score %>
+          <div class="panel-heading">
+            <div class="title">평점</div>
+            <%= render 'star_rating', score: @review.score %>
+            <div class="score-text"><%= ReviewScore.t(@review.score || ReviewScore::BEST) %></div>
+          </div>
+        <% end %>
+        <div class="panel-body">
+          <% if !@review.options.empty? %>
+            <div class="review-options">
+              <% if !@review.options.empty? %>
+                <% @review.options.sorted.each do |option| %>
+                  <div class="review-option">
+                    <div class="review-option-title"><%= option.name %></div>
+                    <div class="review-option-content"><%= option.value %> <%= option.unit if option.field_type == ReviewOptionFieldType::NUMBER && !option.unit.blank? %></div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="message review-contents-style">
+            <%= @review.message.html %>
+          </div>
+          <%= render 'images', review: @review %>
+        </div>
+      </div>
+
+      <%
+      likes = likes?(@review)
+      like = get_like(@review)
+      %>
+      <%= content_tag :div, class: "inline facebook-container like-action #{(like.score > 0 ? 'liked' : 'unliked') if likes}", data: {url: like_mobile_review_path(@review)} do %>
+        <a class="link-like btn">
+          <span class="inline likable">좋아요</span>
+          <span class="facebook-like inline"></span>
+          <span class="like-score"><%= @review.score_with_sign %></span>
+        </a>
+      <% end %>
+
+      <% is_first_child = true %>
+      <div class="comment-container">
+        <%
+        if @review.comments_count == 0
+          klass = 'hidden'
+        else
+          klass = 'first-child'
+          is_first_child = false
+        end
+        %>
+        <%= content_tag :div, class: "panel sub-panel panel-comments #{klass}" do %>
+          <div class="panel-heading thin-black"></div>
+          <div class="panel-body">
+            <ul>
+              <%= render @review.comments %>
+            </ul>
+          </div>
+        <% end %>
+        <% if @brand.review_enable_user_comments %>
+          <%= content_tag :div, class: "panel sub-panel panel-new-comment #{'first-child' if is_first_child}" do %>
+            <div class="panel-body">
+              <div class="new-comments">
+                <%= form_for Comment.new, url: mobile_comments_path, validate: true, remote: true, data: {login_required: true} do |f| %>
+                  <%= f.text_field :message, placeholder: '댓글을 작성해 주세요 :)', class: 'input-block', data: {login_required: true} %>
+                  <%= f.hidden_field :review_id, value: @review.id %>
+                  <%= content_tag :button, '등록', class: 'btn btn-lg' %>
+                  <input type="hidden" name="tracking_id">
+                  <% if current_user %>
+                    <script class="blueprint" type="text/x-jquery-tmpl">
+                      <%= render "comments/comment", comment: Comment.template(current_user, @review) %>
+                    </script>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

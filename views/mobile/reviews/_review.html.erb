@@ -1,0 +1,78 @@
+<%
+hide_image = false if !local_assigns[:hide_image]
+external_link = false if !local_assigns[:external_link]
+user_grade_icon_url = review.user_grade_icon_url
+display_user_grade = @brand.review_author_display_type == ReviewAuthorDisplayType::USER_GRADE && @brand.brand_user_grade_display_type_in_reviews_index != BrandUserGradeDisplayType::NONE
+display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grade_display_type_in_reviews_index == BrandUserGradeDisplayType::TEXT_WITH_ICON
+%>
+<%= content_tag_for :li, review do %>
+  <div class="review-inner">
+    <% if !hide_image %>
+      <div class="l-contents image">
+        <%= image_tag review.product_image_url, class: 'smooth', alt: review.product_name, width: 82, height: 82 %>
+      </div>
+    <% end %>
+    <%= content_tag :div, class: "panel panel-review #{'with-image' if !hide_image }" do %>
+      <div class="panel-body no-border">
+        <div class="message">
+          <% case @brand.review_author_display_type %>
+          <% when ReviewAuthorDisplayType::AUTHOR_TYPE %>
+            <% if review.brand_author_type %>
+              <span>[<%= review.brand_author_type.title %>]</span>
+            <% elsif review.pinned_to_top? %>
+              <span>[베스트 리뷰]</span>
+            <% end %>
+          <% when ReviewAuthorDisplayType::USER_GRADE %>
+            <% if review.pinned_to_top? %>
+              <span>[베스트 리뷰]</span>
+            <% end %>
+          <% end %>
+          <%= review.message.summary(Settings.max_review_chars_per_line) %>
+        </div>
+        <div class="star-wrap">
+          <% if @brand.review_show_score %>
+            <%= render 'reviews/star_rating', score: review.score %>
+          <% end %>
+        </div>
+        <%= content_tag :div, class: "name brand-user-grade-display-type-#{@brand.brand_user_grade_display_type_in_reviews_index}" do %>
+          <%= review_user_display_name(review) %>
+          <% if review.brand_user_grade && display_user_grade %>
+            <span>
+              &nbsp;
+              <% if display_user_grade_icon %>
+                <%= image_tag user_grade_icon_url, class: 'user-grade-icon' %>
+              <% end %>
+              <%= review.brand_user_grade %>
+            </span>
+          <% end %>
+        <% end %>
+        <% if @brand.review_show_created_at %>
+          <div class="date"><%= review.created_at.strftime('%Y.%m.%d') %></div>
+        <% end %>
+        <%= content_tag :div, class: "action-info #{'with-image' if !hide_image }" do %>
+          <span class="comments-count">
+            <i class="fa fa-comment"></i>
+            <span class="count"><%= review.comments_count %></span>
+          </span>
+          <span class="likes-count">
+            <i class="fa fa-heart"></i>
+            <span class="count"><%= review.total_score %></span>
+          </span>
+        <% end %>
+      </div>
+      <%= render 'reviews/images', review: review, image_size: :thumbnail %>
+      <% if is_my_last_review?(review) %>
+        <div class="my-reivew-tag">내 리뷰</div>
+      <% elsif review.new? %>
+        <div class="new-tag">new</div>
+      <% end %>
+    <% end %>
+    <div class="links">
+      <% if external_link %>
+        <%= content_tag :a, nil, data: {review_url: mobile_review_url(review.id)}, class: 'link-cover link-review' %>
+      <% else %>
+        <%= link_to '', mobile_review_path(review.id), remote: true, class: 'link-cover link-review' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
