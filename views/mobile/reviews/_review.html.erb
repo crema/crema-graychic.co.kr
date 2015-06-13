@@ -61,7 +61,7 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
         <% end %>
       </div>
       <%= render 'reviews/images', review: review, image_size: :thumbnail %>
-      <% if is_my_last_review?(review) %>
+      <% if my_last_review?(review) %>
         <div class="my-reivew-tag">내 리뷰</div>
       <% elsif review.new? %>
         <div class="new-tag">new</div>
