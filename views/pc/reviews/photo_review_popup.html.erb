@@ -1,5 +1,4 @@
 <% product_url = @review.product_url || (@review.product ? @review.product.url : nil) %>
-<% images_count = @review.images_count %>
 <% content_for :content do %>
   <div id="photo-review-popup-iframe" class="fullscreen-popup review">
     <div class="fullscreen-popup-background ie-png-fix"></div>
@@ -7,9 +6,8 @@
       <div id="photo-popup-content" class="ie-opacity-fix fullscreen-popup-content">
         <div id="photos-container">
           <%= render 'popup_photos' %>
-          <%= render 'images_indicator', images_count: images_count %>
         </div>
-        <% if images_count > 1 %>
+        <% if @review.images_count > 1 %>
           <div id="image-prev" class="navigation-button hoverable ie-opacity-fix">
             <div class="button-container">
               <div class="sprites-navigator-left ie-png-fix"></div>
