@@ -12,7 +12,7 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
         <%= image_tag review.product_image_url, class: 'smooth', alt: review.product_name, width: 82, height: 82 %>
       </div>
     <% end %>
-    <%= content_tag :div, class: "panel panel-review #{'with-image' if !hide_image }" do %>
+    <%= content_tag :div, class: "panel panel-review #{'with-image' if !hide_image}" do %>
       <div class="panel-body no-border">
         <div class="message">
           <% case @brand.review_author_display_type %>
@@ -36,13 +36,13 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
         </div>
         <%= content_tag :div, class: "name brand-user-grade-display-type-#{@brand.brand_user_grade_display_type_in_reviews_index}" do %>
           <%= review_user_display_name(review) %>
-          <% if review.brand_user_grade && display_user_grade %>
+          <% if review.brand_user_grade_name.present? && display_user_grade %>
             <span>
               &nbsp;
               <% if display_user_grade_icon %>
                 <%= image_tag user_grade_icon_url, class: 'user-grade-icon' %>
               <% end %>
-              <%= review.brand_user_grade %>
+              <%= review.brand_user_grade_name %>
             </span>
           <% end %>
         <% end %>
@@ -61,7 +61,7 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
         <% end %>
       </div>
       <%= render 'reviews/images', review: review, image_size: :thumbnail %>
-      <% if is_my_last_review?(review) %>
+      <% if my_last_review?(review) %>
         <div class="my-reivew-tag">내 리뷰</div>
       <% elsif review.new? %>
         <div class="new-tag">new</div>
