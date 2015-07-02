@@ -68,7 +68,7 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
           <% if display_user_grade_icon %>
             <%= image_tag user_grade_icon_url, class: 'user-grade-icon' %>
           <% end %>
-          <%= review.brand_user_grade %>
+          <%= review.brand_user_grade_name %>
         </span>
       <% end %>
       <% if @brand.review_show_created_at %>
