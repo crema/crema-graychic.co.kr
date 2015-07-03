@@ -1,6 +1,6 @@
 <%
 hide_image = false if !local_assigns[:hide_image]
-product_url = review.product_url || (review.product ? review.product.url : nil) 
+product_url = review.product_url || (review.product ? review.product.url : nil)
 user_grade_icon_url = review.user_grade_icon_url
 display_user_grade = @brand.review_author_display_type == ReviewAuthorDisplayType::USER_GRADE && @brand.brand_user_grade_display_type_in_reviews_index != BrandUserGradeDisplayType::NONE
 display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grade_display_type_in_reviews_index == BrandUserGradeDisplayType::TEXT_WITH_ICON
@@ -68,7 +68,7 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
           <% if display_user_grade_icon %>
             <%= image_tag user_grade_icon_url, class: 'user-grade-icon' %>
           <% end %>
-          <%= review.brand_user_grade %>
+          <%= review.brand_user_grade_name %>
         </span>
       <% end %>
       <% if @brand.review_show_created_at %>

@@ -1,5 +1,5 @@
-<% 
-likes = likes?(review) 
+<%
+likes = likes?(review)
 like = get_like(review)
 %>
 <%= content_tag :div, class: "inline like-action #{(like.score > 0 ? 'liked' : 'unliked') if likes}", data: {url: like_review_path(review)} do %>
