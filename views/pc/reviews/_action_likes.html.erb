@@ -28,11 +28,11 @@ like = get_like(review)
         <% end %>
         <% if editable %>
           <% if current_user %>
-            <%= link_to edit_review_path(review, group: @group_by), method: :post, remote: true do %>
+            <%= link_to edit_review_path(review, group: @group_by, widget_id: widget.id), method: :post, remote: true do %>
               <span class="edit-review hoverable">수정</span>
             <% end %>
           <% else %>
-            <%= content_tag :span, '수정', class: 'edit-review hoverable edit-nonmember', data: {action: 'edit', path: edit_review_path(review, group: @group_by)} %>
+            <%= content_tag :span, '수정', class: 'edit-review hoverable edit-nonmember', data: {action: 'edit', path: edit_review_path(review, widget_id: widget.id, group: @group_by)} %>
           <% end %>
         <% end %>
         <div class="inline edit-review-container-line"></div>
