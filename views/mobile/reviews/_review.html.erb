@@ -71,7 +71,7 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
       <% if external_link %>
         <%= content_tag :a, nil, data: {review_url: mobile_review_url(review.id)}, class: 'link-cover link-review' %>
       <% else %>
-        <%= link_to '', mobile_review_path(review.id), remote: true, class: 'link-cover link-review' %>
+        <%= link_to '', mobile_review_path(review.id), remote: true, class: 'link-cover link-review', data: {link_target: 'window'} %>
       <% end %>
     </div>
   </div>
