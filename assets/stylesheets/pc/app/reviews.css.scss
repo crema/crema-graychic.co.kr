@@ -152,7 +152,7 @@ li.review {
     }
 
     .star-wrap {
-      @include clearfix;
+      @include clearfix_left;
 
       .brand-author-type-image-container {
         float: left;
