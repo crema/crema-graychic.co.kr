@@ -68,11 +68,20 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
       <% end %>
     <% end %>
     <div class="links">
-      <% if external_link %>
-        <%= content_tag :a, nil, data: {review_url: mobile_review_url(review.id)}, class: 'link-cover link-review' %>
-      <% else %>
-        <%= link_to '', mobile_review_path(review.id), remote: true, class: 'link-cover link-review', data: {link_target: 'window'} %>
-      <% end %>
+      <%
+      link_review_args = {
+        class: 'link-cover link-review'
+      }
+      link_review_params = {}
+      if iframe? && browser.supports_new_tab?
+        link_review_args[:target] = '_blank'
+        link_review_params[:new_tab] = 1
+      else
+        link_review_args[:"data-link-target"] = 'window'
+        link_review_args[:remote] = true
+      end
+      %>
+      <%= link_to '', mobile_review_path(review.id, link_review_params), link_review_args %>
     </div>
   </div>
 <% end %>
