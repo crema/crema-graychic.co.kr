@@ -286,7 +286,7 @@ li.review {
     right: 0;
     top: 30px;
     min-width: 205px;
-    font-family: $font-default;
+    @include font-default;
 
     &.index {
       min-width: 205px;
@@ -294,7 +294,7 @@ li.review {
 
     &.show_all {
       min-width: 174px;
-      font-family: $font-default;
+      @include font-default;
 
       .name {
         font-weight: bold;
@@ -472,7 +472,7 @@ li.review {
   .title {
     margin-right: 12px;
     color: #7b7b7b;
-    font-family: $font-default;
+    @include font-default;
   }
 
   &.liked .link-like, &.unliked .link-unlike {

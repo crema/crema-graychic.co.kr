@@ -234,7 +234,7 @@ li.review, li.sub_order {
       .title {
         margin-right: 12px;
         color: #7b7b7b;
-        font-family: $font-default;
+        @include font-default;
       }
     }
   }
@@ -243,10 +243,10 @@ li.review, li.sub_order {
     position: absolute;
     right: 0;
     top: 30px;
-    font-family: $font-default;
+    @include font-default;
 
     &.show_all {
-      font-family: $font-default;
+      @include font-default;
 
       .name {
         font-weight: bold;
@@ -494,7 +494,7 @@ ul.reviews li.review .panel-review ul.images {
   }
 
   .facebook-like {
-    background-image: url(http://assets.crema.me/latte/assets/graychic-co-kr/facebook-like.png);
+    background-image: url(http://assets2.cre.ma/latte/assets/graychic-co-kr/facebook-like.png);
     width: 15px;
     height: 14px;
   }

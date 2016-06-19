@@ -27,7 +27,7 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
     <div class="panel-heading no-border score">
       <%= content_tag :div, class: "name #{'name-with-new-tag' if review.new?} #{'name-with-camera-icon' if review.images_count > 0}" do %>
         <%= content_tag :a, data: link_data, class: link_class ? link_class + " review-title" : "review-title link-expand" do %>
-          <%= review.message.first_line.html_safe %>
+          <%= review.message.first_line %>
         <% end %>
         <%= render 'reviews/tags', review: review %>
       <% end %>
@@ -40,7 +40,7 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
         <div class="panel-body no-border">
           <div class="message">
             <span>
-              <%= review.message.first_line(Settings.max_review_chars_per_line).html_safe %>
+              <%= review.message.first_line(Settings.max_review_chars_per_line) %>
               <%= content_tag(:span, '... 더보기', class: 'mall-link-color see-more') if review.message.multi_lines?(Settings.max_review_chars_per_line) %>
               <br>
             </span>
