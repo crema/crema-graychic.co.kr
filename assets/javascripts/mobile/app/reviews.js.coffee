@@ -135,9 +135,9 @@ $(document).on "change", "select.select-rating", ->
 $(document).on "change", "select#category", ->
   $.getScript($(this).val())
 
-$(document).on "change", "select#sort_type", ->
+$(document).on "change", "select#sort", ->
   url = $.url($("#data-sort-type").data("url"))
-  $.getScript url.attr("base") + url.attr("path") + "?" + $.param($.extend(url.param(), {order: $(this).val()}))
+  $.getScript url.attr("base") + url.attr("path") + "?" + $.param($.extend(url.param(), {sort: $(this).val()}))
 
 $(document).on "click", ".link-close", ->
   if lib.ajax_util.is_in_progress()
