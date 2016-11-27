@@ -153,3 +153,6 @@ $(document).on "click", "a.link-edit", ->
   else
     $(".review").removeClass("show-action")
     $review.addClass("show-action")
+
+$(document).on "click", ".photo-review-popup", ->
+  app.window.photo_review_popup $(this).data("photo-review-popup-url")
