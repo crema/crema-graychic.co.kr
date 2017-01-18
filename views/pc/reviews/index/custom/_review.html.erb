@@ -11,8 +11,8 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
       <%
         image = review.image(1)
         if @brand.review_enable_gallery_popup
-          link_class = 'photo-review-popup'
-          link_data = {photo_review_popup_url: photo_review_popup_review_path(review, photo_index: 1)}
+          link_class = 'link-fullscreen-popup'
+          link_data = {url: photo_review_popup_review_path(review, photo_index: 1)}
         else
           link_class = 'link-image-zoom'
           link_data = {url: image.url(:large), width: image.width(:large), height: image.height(:large)}
