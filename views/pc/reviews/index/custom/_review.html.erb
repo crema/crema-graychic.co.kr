@@ -15,7 +15,8 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
           link_data = {url: photo_review_popup_review_path(review, photo_index: 1)}
         else
           link_class = 'link-image-zoom'
-          link_data = {url: image.url(:large), width: image.width(:large), height: image.height(:large)}
+          large_w, large_h = image.dimension(:large)
+          link_data = {url: image.url(:large), width: large_w, height: large_h}
         end
       %>
       <%= content_tag :a, data: link_data, class: link_class + " image" do %>
