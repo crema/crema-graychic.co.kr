@@ -68,25 +68,13 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
       <% end %>
     <% end %>
     <div class="links">
-      <%
-      link_review_args = {
-        class: 'link-cover link-review'
-      }
-      if iframe?
-        link_review_args[:class] << ' link-fullscreen-popup'
-        concat content_tag(:a,
-          '',
-          class: link_review_args[:class],
-          data: {
-            url: mobile_review_path(review.id, popup: 1)
-          }
-        )
-      else
-        link_review_args[:"data-link-target"] = 'window'
-        link_review_args[:remote] = true
-        concat link_to('', mobile_review_path(review.id), link_review_args)
-      end
-      %>
+      <%= link_to(
+        '',
+        mobile_review_path(review.id),
+        class: 'link-cover link-review',
+        data: {link_target: 'window'},
+        remote: true
+      ) %>
     </div>
   </div>
 <% end %>
