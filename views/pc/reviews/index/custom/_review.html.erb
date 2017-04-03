@@ -10,14 +10,8 @@ display_user_grade_icon = user_grade_icon_url.present? && @brand.brand_user_grad
     <% if review.images_count > 0 %>
       <%
         image = review.image(1)
-        if @brand.review_enable_gallery_popup
-          link_class = 'link-fullscreen-popup'
-          link_data = {url: photo_review_popup_review_path(review, photo_index: 1)}
-        else
-          link_class = 'link-image-zoom'
-          large_w, large_h = image.dimension(:large)
-          link_data = {url: image.url(:large), width: large_w, height: large_h}
-        end
+        link_class = 'link-fullscreen-popup'
+        link_data = {url: photo_review_popup_review_path(review, photo_index: 1)}
       %>
       <%= content_tag :a, data: link_data, class: link_class + " image" do %>
         <%= image_tag image.url(:thumbnail), class: 'review-image smooth', alt: review.title, width: 90, height: 90 %>
